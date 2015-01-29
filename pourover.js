@@ -1569,7 +1569,7 @@ var PourOver = (function(){
               cache: true
             }).always(function(d){
               if(_.isArray(d)){
-                items = _.map(d,that.preprocessItem,that);
+                var items = _.map(d,that.preprocessItem,that);
                 _.each(items,function(i){
                   that.buffered_items[i[0]] = i[1];
                 });
