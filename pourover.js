@@ -1826,6 +1826,30 @@ var PourOver = (function(){
         return filter;
       }
 
+      PourOver.inclusionContinuousRangeFilter = PourOver.continuousRangeFilter.extend({
+        cacheResults: function(items){
+          var that = this;
+          this.values = [];
+          _.each(items, function(i) {
+            if(_.isArray(i[that.name])) {
+              _.each(i[that.name], function (val) {that.values.push({cid: i.cid, val:val});});
+            } else {
+              that.values.push({cid: i.cid, val:i[that.name]});
+            }
+          });
+          this.values.sort(function(a,b) { return a.val-b.val });
+        }
+      });
+
+      // The convenience constructor for inclusion continuous range filters.
+      PourOver.makeInclusionContinuousRangeFilter = function(name,opts){
+        if(typeof(opts) === "undefined"){opts = {}}
+        var attr = opts.attr || name,
+          newopts = _.extend({associated_attrs: [attr]},opts),
+          filter = new PourOver.inclusionContinuousRangeFilter(name,newopts);
+        return filter;
+      }
+
       // ## Preset sorts
       //
       // Sorts items based on an explicit ordering of values. This would be useful for, say, a slideshow in which
