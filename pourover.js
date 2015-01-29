@@ -1900,6 +1900,7 @@ var PourOver = (function(){
       PourOver.makeExplicitSort = function(name,collection,attr,order,opts){
         var sort = new PourOver.explicitSort(name,opts);
         sort.associated_attrs = [attr];
+        sort.attr = attr;
         sort.order = order;
         return sort;
       }
@@ -1913,6 +1914,7 @@ var PourOver = (function(){
       PourOver.makeReverseCidSort = function(name,collection){
         var sort = new PourOver.reverseCidSort(name);
         sort.associated_attrs = ["cid"];
+        sort.attr = attr;
         return sort;
       }
 
